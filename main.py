@@ -5,7 +5,7 @@ from fuzzywuzzy import fuzz
 import sys
 
 current_time = datetime.datetime.now()
-
+arguments = sys.argv[1]
 def sttoint(data):
     try:
         return f"ID{int(data)}"
@@ -14,17 +14,17 @@ def sttoint(data):
         
 
 try:
-    df = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}bux.xlsx", sheet_name='2-kurs', skiprows=2)
+    df = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}bux.xlsx", sheet_name=f'{arguments}-kurs', skiprows=1)
 except:
-    df = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}bux.xls", sheet_name='1-kurs', skiprows=2)
+    df = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}bux.xls", sheet_name='{arguments}-kurs', skiprows=1)
     
-    
-# df['ID'] = df['ID'].apply(sttoint)
+if arguments == '1':
+    df['ID'] = df['ID'].apply(sttoint)
 
 try:
-    setter = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}.xlsx", sheet_name='umumiy', skiprows=2)
+    setter = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}.xlsx", sheet_name=f'{arguments}-kurs umumiy', skiprows=2)
 except:
-    setter = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}.xls", sheet_name='umumiy', skiprows=2)
+    setter = pd.read_excel(f"docs/{current_time.strftime('%b%d').lower()}.xls", sheet_name=f'{arguments}-kurs umumiy', skiprows=2)
 
 counter_fish_set = 0
 counter_id_set = 0
